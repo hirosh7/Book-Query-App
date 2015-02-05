@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">MessengerApp</string>
-    <string name="hello_world">The Messenger App is alive!</string>
+    <string name="hello_world">The Messenger App is alive!!</string>
     <string name="action_settings">Settings</string>
 
 </resources>
