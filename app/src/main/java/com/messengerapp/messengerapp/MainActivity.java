@@ -33,8 +33,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mainTextView = (TextView) findViewById(R.id.main_textview);
         mainTextView.setText("Set in Java!");
 
-        // 2. Access the Button defined in layout XML
-        // and listen for it here
+        // 2. Access the Button defined in layout XML and listen for it here
         mainButton = (Button) findViewById(R.id.main_button);
         mainButton.setOnClickListener(this);
 
