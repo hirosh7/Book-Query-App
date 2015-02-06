@@ -28,8 +28,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 1. Access the TextView defined in layout XML
-        // and then set its text
+        // 1. Access the TextView defined in layout XML and then set its text
         mainTextView = (TextView) findViewById(R.id.main_textview);
         mainTextView.setText("Set in Java!");
 
