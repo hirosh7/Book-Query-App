@@ -37,6 +37,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mainButton.setOnClickListener(this);
 
         // 3. Access the EditText defined in layout XML
+        // New Feature code simulated in a comment
         mainEditText = (EditText) findViewById(R.id.main_edittext);
 
         // 4. Access the ListView
