@@ -4,5 +4,6 @@
     <string name="app_name">MessengerApp</string>
     <string name="textview">The Messenger App is alive!!</string>
     <string name="action_settings">Settings</string>
+    <string name="button">Update The TextView</string>
 
 </resources>

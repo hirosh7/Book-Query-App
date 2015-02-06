@@ -3,12 +3,15 @@ package com.messengerapp.messengerapp;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     TextView mainTextView;
+    Button mainButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,11 @@ public class MainActivity extends ActionBarActivity {
         // and then set its text
         mainTextView = (TextView) findViewById(R.id.main_textview);
         mainTextView.setText("Set in Java!");
+
+        // 2. Access the Button defined in layout XML
+        // and listen for it here
+        mainButton = (Button) findViewById(R.id.main_button);
+        mainButton.setOnClickListener(this);
     }
 
 
@@ -27,5 +35,11 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        // Test the Button
+        mainTextView.setText("Button pressed!");
     }
 }
