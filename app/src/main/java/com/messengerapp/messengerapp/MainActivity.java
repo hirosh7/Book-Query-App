@@ -2,8 +2,10 @@ package com.messengerapp.messengerapp;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener,
+        AdapterView.OnItemClickListener {
 
     TextView mainTextView;
     Button mainButton;
@@ -48,8 +51,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 android.R.layout.simple_list_item_1,
                 mNameList);
 
-// Set the ListView to use the ArrayAdapter
+       // Set the ListView to use the ArrayAdapter
         mainListView.setAdapter(mArrayAdapter);
+
+        // 5. Set this activity to react to list items being pressed
+        mainListView.setOnItemClickListener(this);
     }
 
     @Override
@@ -70,5 +76,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // Also add that value to the list shown in the ListView
         mNameList.add(mainEditText.getText().toString());
         mArrayAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // Log the item's position and contents
+        // to the console in Debug
+        Log.d("MessengerApp android", position + ": " + mNameList.get(position));
     }
 }
