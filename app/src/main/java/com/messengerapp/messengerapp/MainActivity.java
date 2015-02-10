@@ -102,8 +102,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
                 public void onClick(DialogInterface dialog, int whichButton) {
 
-                    // Grab the EditText's input
-                    String inputName = input.getText().toString();
+                    // Grab the EditText's input and capitalize first letter of name
+                    String inputName = capitalizeFirstLetter(input.getText().toString());
 
                     // Put it into memory (don't forget to commit!)
                     SharedPreferences.Editor e = mSharedPreferences.edit();
@@ -169,16 +169,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void onClick(View v) {
         // Take what was typed into the EditText
         // and use in TextView
-        mainTextView.setText(mainEditText.getText().toString()
-                + " is learning Android development!");
+        String inputName = capitalizeFirstLetter(mainEditText.getText().toString());
+        mainTextView.setText(inputName + " is learning Android development!");
 
         // Also add that value to the list shown in the ListView
-        mNameList.add(mainEditText.getText().toString());
+        mNameList.add(inputName);
         mArrayAdapter.notifyDataSetChanged();
 
         // 6. The text you'd like to share has changed,
         // and you need to update
         setShareIntent();
+
+        // Clear the text box
+        mainEditText.setText("");
     }
 
     @Override
@@ -186,5 +189,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // Log the item's position and contents
         // to the console in Debug
         Log.d("MessengerApp android", position + ": " + mNameList.get(position));
+    }
+
+    public String capitalizeFirstLetter(String original){
+        if(original.length() == 0)
+            return original;
+        return original.substring(0, 1).toUpperCase() + original.substring(1);
     }
 }
