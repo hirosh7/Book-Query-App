@@ -168,20 +168,23 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @SuppressWarnings("unchecked")
     public void onClick(View v) {
         // Take what was typed into the EditText
-        // and use in TextView
+        // and use in TextView if string is valid (one character or more)
         String inputName = capitalizeFirstLetter(mainEditText.getText().toString());
-        mainTextView.setText(inputName + " is learning Android development!");
 
-        // Also add that value to the list shown in the ListView
-        mNameList.add(inputName);
-        mArrayAdapter.notifyDataSetChanged();
+        if (inputName.length() > 0) {
+            mainTextView.setText(inputName + " is learning Android development!");
 
-        // 6. The text you'd like to share has changed,
-        // and you need to update
-        setShareIntent();
+            // Also add that value to the list shown in the ListView
+            mNameList.add(inputName);
+            mArrayAdapter.notifyDataSetChanged();
 
-        // Clear the text box
-        mainEditText.setText("");
+            // 6. The text you'd like to share has changed,
+            // and you need to update
+            setShareIntent();
+
+            // Clear the text box
+            mainEditText.setText("");
+        }
     }
 
     @Override
