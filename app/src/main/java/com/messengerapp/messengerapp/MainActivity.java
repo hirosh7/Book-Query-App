@@ -67,6 +67,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mainListView.setAdapter(mArrayAdapter);
 
         // 5. Set this activity to react to list items being pressed
+        mainListView.setOnItemClickListener(this);
 
         // 7. Greet the user, or ask for their name if new
         displayWelcome();
