@@ -179,6 +179,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // 6. The text you'd like to share has changed,
         // and you need to update
         setShareIntent();
+
+        // Clear the text box
+        mainEditText.setText("");
     }
 
     @Override
