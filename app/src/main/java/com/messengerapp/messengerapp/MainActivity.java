@@ -1,6 +1,7 @@
 package com.messengerapp.messengerapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,6 +31,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     ArrayAdapter mArrayAdapter;
     ArrayList mNameList = new ArrayList();
     ShareActionProvider mShareActionProvider;
+    private static final String PREFS = "prefs";
+    private static final String PREF_NAME = "name";
+    SharedPreferences mSharedPreferences;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -60,7 +65,25 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mainListView.setAdapter(mArrayAdapter);
 
         // 5. Set this activity to react to list items being pressed
-        mainListView.setOnItemClickListener(this);
+
+        // 7. Greet the user, or ask for their name if new
+        displayWelcome();
+    }
+
+    public void displayWelcome() {
+        // Access the device's key-value storage
+        // MODE_PRIVATE specifies that data is only accessible by this app
+        mSharedPreferences = getSharedPreferences(PREFS, MODE_PRIVATE);
+
+        // Read the user's name,
+        // or an empty string if nothing found (secnod param is the default)
+        String name = mSharedPreferences.getString(PREF_NAME, "Jack");
+
+        if (name.length() > 0) {
+
+            // If the name is valid, display a Toast welcoming them
+            Toast.makeText(this, "Welcome back, " + name + "!", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
