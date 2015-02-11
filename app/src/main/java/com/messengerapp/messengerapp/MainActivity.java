@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
@@ -174,24 +175,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     @SuppressWarnings("unchecked")
     public void onClick(View v) {
-        // Take what was typed into the EditText
-        // and use in TextView if string is valid (one character or more)
-        String inputName = capitalizeFirstLetter(mainEditText.getText().toString());
 
-        if (inputName.length() > 0) {
-            mainTextView.setText(inputName + " is learning Android development!");
-
-            // Also add that value to the list shown in the ListView
-            mNameList.add(inputName);
-            mArrayAdapter.notifyDataSetChanged();
-
-            // 6. The text you'd like to share has changed,
-            // and you need to update
-            setShareIntent();
-
-            // Clear the text box
-            mainEditText.setText("");
-        }
+        /// 9. Take what was typed into the EditText and use in search
+        queryBooks(mainEditText.getText().toString());
     }
 
     @Override
@@ -230,7 +216,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 new JsonHttpResponseHandler() {
 
                     @Override
-                    public void onSuccess(JSONObject jsonObject) {
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
 
                         // Display a "Toast" message
                         // to announce your success
@@ -242,7 +228,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     }
 
                     @Override
-                    public void onFailure(int statusCode, Throwable throwable, JSONObject error) {
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable,
+                                          JSONObject error) {
 
                         // Display a "Toast" message
                         // to announce the failure
