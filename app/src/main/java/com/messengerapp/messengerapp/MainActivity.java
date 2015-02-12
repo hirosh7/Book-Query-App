@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,7 +27,6 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener,
@@ -38,8 +36,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     Button mainButton;
     EditText mainEditText;
     ListView mainListView;
-    ArrayAdapter mArrayAdapter;
-    ArrayList mNameList = new ArrayList();
+    JSONAdaptor mJSONAdapter;
     ShareActionProvider mShareActionProvider;
     private static final String PREFS = "prefs";
     private static final String PREF_NAME = "name";
@@ -66,19 +63,17 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // 4. Access the ListView
         mainListView = (ListView) findViewById(R.id.main_listview);
 
-       // Create an ArrayAdapter for the ListView
-        mArrayAdapter = new ArrayAdapter(this,
-                android.R.layout.simple_list_item_1,
-                mNameList);
-
-       // Set the ListView to use the ArrayAdapter
-        mainListView.setAdapter(mArrayAdapter);
-
         // 5. Set this activity to react to list items being pressed
         mainListView.setOnItemClickListener(this);
 
         // 7. Greet the user, or ask for their name if new
         displayWelcome();
+
+        // 10. Create a JSONAdapter for the ListView
+        mJSONAdapter = new JSONAdaptor(this, getLayoutInflater());
+
+        // Set the ListView to use the ArrayAdapter
+        mainListView.setAdapter(mJSONAdapter);
     }
 
     public void displayWelcome() {
@@ -87,7 +82,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         mSharedPreferences = getSharedPreferences(PREFS, MODE_PRIVATE);
 
         // Read the user's name,
-        // or an empty string if nothing found (secnod param is the default)
+        // or an empty string if nothing found (second param is the default)
         String name = mSharedPreferences.getString(PREF_NAME, "");
 
         if (name.length() > 0) {
@@ -145,7 +140,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         MenuItem shareItem = menu.findItem(R.id.menu_item_share);
 
         // Access the object responsible for
-        // putting together the sharing submenu
+        // putting together the sharing sub-menu
         if (shareItem != null) {
             mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
         }
@@ -182,9 +177,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // Log the item's position and contents
-        // to the console in Debug
-        Log.d("MessengerApp android", position + ": " + mNameList.get(position));
+
     }
 
     public String capitalizeFirstLetter(String original){
@@ -223,8 +216,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                         Toast.makeText(getApplicationContext(), "Success!",
                                 Toast.LENGTH_LONG).show();
 
-                        // 8. For now, just log results
-                        Log.d("MessengerApp android", jsonObject.toString());
+                        // update the data in your custom method.
+                        mJSONAdapter.updateData(jsonObject.optJSONArray("docs"));
                     }
 
                     @Override
