@@ -37,7 +37,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     EditText mainEditText;
     ListView mainListView;
     JSONAdaptor mJSONAdapter;
-//    ArrayList mNameList = new ArrayList();
     ShareActionProvider mShareActionProvider;
     private static final String PREFS = "prefs";
     private static final String PREF_NAME = "name";
