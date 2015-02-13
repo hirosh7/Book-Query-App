@@ -1,6 +1,7 @@
 package com.messengerapp.messengerapp;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,6 +43,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private static final String PREF_NAME = "name";
     private static final String QUERY_URL = "http://openlibrary.org/search.json?q=";
     SharedPreferences mSharedPreferences;
+    ProgressDialog mDialog;
 
     @Override
     @SuppressWarnings("unchecked")
