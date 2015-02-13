@@ -1,6 +1,7 @@
 package com.messengerapp.messengerapp;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,6 +43,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private static final String PREF_NAME = "name";
     private static final String QUERY_URL = "http://openlibrary.org/search.json?q=";
     SharedPreferences mSharedPreferences;
+    ProgressDialog mDialog;
 
     @Override
     @SuppressWarnings("unchecked")
@@ -74,6 +76,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         // Set the ListView to use the ArrayAdapter
         mainListView.setAdapter(mJSONAdapter);
+
+        mDialog = new ProgressDialog(this);
+        mDialog.setMessage("Searching for Book");
+        mDialog.setCancelable(false);
     }
 
     public void displayWelcome() {
@@ -203,6 +209,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // Create a client to perform networking
         AsyncHttpClient client = new AsyncHttpClient();
 
+        // Show ProgressDialog to inform user that a task in the background is occurring
+        mDialog.show();
+
         // Have the client get a JSONArray of data
         // and define how to respond
         client.get(QUERY_URL + urlString,
@@ -210,6 +219,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject jsonObject) {
+
+                        // 11. Dismiss the ProgressDialog
+                        mDialog.dismiss();
 
                         // Display a "Toast" message
                         // to announce your success
@@ -223,6 +235,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable,
                                           JSONObject error) {
+
+                        // 11. Dismiss the ProgressDialog
+                        mDialog.dismiss();
 
                         // Display a "Toast" message
                         // to announce the failure
