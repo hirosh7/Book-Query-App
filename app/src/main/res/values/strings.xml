@@ -7,5 +7,6 @@
     <string name="button">Search</string>
     <string name="hint">Title and/or Author</string>
     <string name="share">Share</string>
+    <string name="book_img_desc">Thumbnail Image of Book</string>
 
 </resources>
