@@ -8,5 +8,7 @@
     <string name="hint">Title and/or Author</string>
     <string name="share">Share</string>
     <string name="book_img_desc">Thumbnail Image of Book</string>
+    <string name="book_cover">Book Cover Image</string>
+    <string name="activity_details">Book Details</string>
 
 </resources>
